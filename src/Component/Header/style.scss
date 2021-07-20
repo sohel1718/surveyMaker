@@ -1,0 +1,77 @@
+.basic-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 200px;
+    &__left {
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        font-size: 20px;
+        cursor: pointer;
+        img {
+            height: 40px;
+            width: 40px;
+            margin-right: 10px;
+        }
+    }
+    &__right {
+        &__links {
+            display: flex;
+            align-items: center;
+            color: #535353;
+            &__link {
+                cursor: pointer;
+                padding: 5px;
+                font-weight: 500;
+            }
+            &__btn {
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                color: #fff;
+                padding: 7px 10px;
+                background-color: #000;
+                margin-left: 5px;
+                span {
+                    height: 24px;
+                    margin-right: 5px;
+                }
+                img {
+                    height: 15px;
+                    width: 15px;
+                }
+            }
+        }
+        &__loggedIn {
+            &__user {
+                display: flex;
+                align-items: center;
+                img {
+                    padding-top: 6px;
+                    height: 15px;
+                    width: 15px;
+                }
+                &__profile {
+                    height: 50px;
+                    width: 50px;
+                    margin-right: 10px;
+                    img {
+                        padding-top: unset;
+                        object-fit: contain;
+                        height: 100%;
+                        width: 100%;
+                        border-radius: 50%;
+                    }
+                }
+                &__name {
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+}
+.fix-header {
+    box-shadow: rgb(0 0 0 / 7%) 0px -1px inset;
+    padding: 10px 50px;
+}

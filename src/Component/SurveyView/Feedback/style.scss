@@ -1,0 +1,17 @@
+.Feedback {
+    &__wrapper {
+        display: flex;
+        &__img {
+            margin: 0 5px;
+            &:hover {
+                border-radius: 50%;
+                border: 5px solid #0445af;
+            }
+            img {
+                cursor: pointer;
+                height: 50px;
+                width: 50px;
+            }
+        }
+    }
+}

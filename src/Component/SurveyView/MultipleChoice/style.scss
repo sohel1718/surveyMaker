@@ -1,0 +1,42 @@
+.multiple-choice {
+    &__wrapper {
+        &__choice {
+            display: flex;
+            background: #e5ecf7;
+            width: max-content;
+            color: #0445af;
+            border: 1px solid #0445af;
+            border-radius: 4px;
+            padding: 5px;
+            margin: 10px 0;
+            &__icon {
+                cursor: pointer;
+            }
+            &__num {
+                background-color: #fff;
+                padding: 3px 12px;
+                font-weight: bold;
+                border-radius: 4px;
+                font-size: 20px;
+                border: 1px solid #0445af;
+            }
+            .ant-input {
+                width: auto;
+                background: transparent;
+                border: none;
+                color: #0445af;
+                font-size: 20px;
+                &:focus {
+                    box-shadow: none;
+                }
+            }
+        } 
+    } 
+    &__add {
+        cursor: pointer;
+        margin-top: 20px;
+        text-decoration: underline;
+        color: #0445af;
+        font-size: 22px;
+    }  
+}

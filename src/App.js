@@ -1,24 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import Layout from './Component/Layout';
+import { Switch, Route } from "react-router-dom";
+import Home from "./Admin/Home";
+import Workspace from "./Admin/Workspace";
+import CreateSurvey from './Admin/CreateSurvey';
+import 'antd/dist/antd.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <Switch>
+     <Route exact path="/" component={Home} />
+     <Layout exact path="/workspace" component={Workspace} isAuthenticated={true}  />
+     <Layout exact path="/create" component={CreateSurvey} isAuthenticated={true}  />
+   </Switch>
   );
 }
 

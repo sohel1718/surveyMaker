@@ -1,0 +1,30 @@
+.question {
+    display: flex;
+    width: 100%;
+    &__left {
+        width: 15%;
+        height: fit-content;
+        color: rgb(4, 69, 175);
+        font-weight: 500;
+        display: flex;
+        font-size: 22px;
+        align-items: center;
+        svg {
+            margin-left: 10px;
+            height: 30px;
+            width: 30px;
+        }
+    }
+    &__right {
+        &__textInput {
+            .ant-input {
+                border: none;
+                outline: none;
+                font-size: 24px;
+                &:focus {
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+}

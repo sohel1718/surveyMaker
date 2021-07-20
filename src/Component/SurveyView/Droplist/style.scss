@@ -1,0 +1,19 @@
+.textbox {
+    .ant-input {
+        color: rgb(4, 69, 175); 
+        border: none;
+        border-bottom: 1px solid rgb(4, 69, 175);
+        padding-bottom: 8px;
+        font-size: 30px;
+        &::placeholder {
+            color: rgb(4, 69, 175); 
+        }
+        &:focus {
+            box-shadow: none;
+            border-color: rgb(4, 69, 175);
+        }
+        &:hover {
+            border-color: rgb(4, 69, 175);
+        }
+    }
+}

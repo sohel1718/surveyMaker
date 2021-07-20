@@ -1,0 +1,37 @@
+.layout-one {
+    color: rgb(38, 38, 39);
+    border-radius: 8px;
+    box-shadow: rgb(0 0 0 / 8%) 0px 2px 4px, rgb(0 0 0 / 6%) 0px 2px 12px;
+    animation: 1s cubic-bezier(0.22, 1, 0.36, 1) 0s 1 normal none running expand;
+    height: 100%;
+    width: 100%;
+    max-width: 1200px;
+    max-height: 600px;
+    position: relative;
+    overflow: hidden;
+    background-color: transparent;
+    display: flex;
+    padding: 50px 50px;
+    overflow: hidden;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+       display: none;
+    }
+    &__left {
+        margin-right: 40px;
+        object-fit: contain;
+        background-size: cover;
+        height: 100%;
+        width: 300px;
+        img { 
+            height: 100%;
+            width: 100%;
+        }
+    }
+    &__right {
+        &__answer {
+            margin-top: 20px;
+            margin-left: 65px;
+        }
+    }
+}

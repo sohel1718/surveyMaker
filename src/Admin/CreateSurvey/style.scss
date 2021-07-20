@@ -1,0 +1,10 @@
+.create-survey {
+    width: 100vw;
+    &__wrapper {
+        display: flex;
+        justify-content: space-between;
+        &::-webkit-scrollbar {
+            display: none;
+         }
+    }
+}

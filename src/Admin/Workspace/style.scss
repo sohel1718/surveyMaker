@@ -1,0 +1,8 @@
+.workspace {
+    padding: 100px 200px; 
+    &__wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        flex: 0 1 auto;
+    }
+}
