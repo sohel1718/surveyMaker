@@ -3,15 +3,15 @@ import Components from '../index';
 import './style.scss';
 
 const SurveyView = ({ survey, dropDown, handleChange }) => {
-    const ComponentToRender = Components[dropDown.type];
+    const ComponentToRender = Components[dropDown.component];
     let disabled = false;
 
-    if (dropDown.type === "Textbox" || "Number" || "Phone" || "email" || "website" || "Textarea" || "Date" ) {
+    if (dropDown.component === "Textbox" || "Textarea" || "Date" ) {
         disabled = true;
     }
     return (
         <div className="view">
-            <LayoutOne survey={survey} handleChange={handleChange}  ComponentToRender={ComponentToRender} disabled={disabled} />
+            <LayoutOne survey={survey} handleChange={handleChange} type={dropDown.type}  ComponentToRender={ComponentToRender} disabled={disabled} />
         </div>
     )
 }

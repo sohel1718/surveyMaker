@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Question from '../../Question';
 import './style.scss';
 
-const LayoutOne = ({ survey, ComponentToRender, disabled, handleChange }) => {
-    const [choice, setChoice] = useState([{id: 1, value: ""}]);
+const LayoutOne = ({ survey, ComponentToRender, disabled, handleChange, type }) => {
+    const [choice, setChoice] = useState();
+    let compData = {};
+
+    useEffect(() => {
+        setChoice(survey.option)
+    },[survey.option])
 
     const handleChoice = (type, value, id) => {
         const temp = [...choice];
@@ -26,6 +31,32 @@ const LayoutOne = ({ survey, ComponentToRender, disabled, handleChange }) => {
         handleChange(temp, "surveyInput", "option");
     }
 
+    switch (type) {
+        case "Phone": {
+            compData = { placeholder: "9090909090", validation: type }; 
+            break;
+        }
+        case "Email": {
+            compData = { placeholder: "survey@gmail.com", validation: type };
+            break;
+        }
+        case "Website": {
+            compData = { placeholder: "https://", validation: type };
+            break;
+        }
+        case "Number": {
+            compData = { placeholder: "Type your answer here...", validation: type };
+            break;
+        }
+        case "Textbox": {
+            compData = { placeholder: "Type your answer here...", validation: null };
+            break;
+        }
+        default: {
+            break;
+        }
+    }
+
     return (
         <div className="layout-one">
             <div className="layout-one__left">
@@ -36,7 +67,7 @@ const LayoutOne = ({ survey, ComponentToRender, disabled, handleChange }) => {
                     <Question handleChange={handleChange} survey={survey} />
                 </div>
                 <div className="layout-one__right__answer">
-                    <ComponentToRender disabled={disabled} survey={survey} handleChoice={handleChoice} choice={choice} />
+                    <ComponentToRender compData={compData} disabled={disabled} survey={survey} handleChoice={handleChoice} choice={choice} />
                 </div>
             </div>
             <div className="layout-one__submit">

@@ -1,17 +1,37 @@
 import ContentBar from '../../Component/ContentBar';
 import SelectionBar from '../../Component/SelectionBar';
 import SurveyView from '../../Component/SurveyView';
+import { useParams } from 'react-router';
+import { useAuthState } from "react-firebase-hooks/auth"
 import * as AntdIcons from '@ant-design/icons';
-import { initialData, DropDownData, pageLayout, LayoutData } from '../../Data'
-import { useState } from 'react';
+import { initialData, DropDownData, pageLayout, LayoutData } from '../../Data';
+import { useState, useEffect } from 'react';
+import { db, auth } from "../../firebase"
 import './style.scss';
+import PreviewModal from '../../Component/PreviewModal';
+import PreviewPage from '../../Component/PreviewPage';
 
 const CreateSurvey = () => {
-    const [survey, setSurvey] = useState(initialData);
+    const { id } = useParams();
+    const [user] = useAuthState(auth);
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [survey, setSurvey] = useState();
+    localStorage.setItem('survey', JSON.stringify(survey));
+    const currentIndex = survey?.page.findIndex(data => data.id === survey.currentPage);
+    const dropDown = DropDownData.filter(data => data.id === +survey?.page[currentIndex].dropDownId)?.[0];
 
-    const currentIndex = survey.page.findIndex(data => data.id === survey.currentPage);
-    const dropDown = DropDownData.filter(data => data.id === +survey.page[currentIndex].dropDownId)[0];
-    console.log(survey.page);
+    useEffect(() => {
+        db.collection("workspace")
+            .where("uid", "==", user.email).where("sid", "==", id)
+          .onSnapshot((querySnapShot) => {
+            const data = querySnapShot.docs.map((doc) => ({
+              ...doc.data(),
+              id: doc.id,
+            }));
+            setSurvey(data[0].survey);
+          });
+    },[db]);
+
     const CustomIcon=(type)=>{
         const AntdIcon= AntdIcons[type];
         return <AntdIcon className="selection-bar__type__icon" />
@@ -58,39 +78,57 @@ const CreateSurvey = () => {
                 break;
             }
         }
+        localStorage.setItem('survey', JSON.stringify(temp));
+    }
+
+    const handlePreview = () => {
+        setIsModalVisible(!isModalVisible);
+    } 
+
+    const handlePublish = () => {
+        db.collection("workspace").doc(id).update({
+            survey: survey
+        });
     }
 
     return (
         <div className="create-survey">
-            <div className="create-survey__wrapper">
-                <div className="create-survey__wrapper__content">
-                    <ContentBar
-                        survey={survey.page}
-                        handleChange={handleChange}
-                        DropDownData={DropDownData}
-                        CustomIcon={CustomIcon}
-                        currentPage={survey.currentPage}
-                    />
+           { survey &&
+                <div className="create-survey__wrapper">
+                    <div className="create-survey__wrapper__content">
+                        <ContentBar
+                            survey={survey.page}
+                            handleChange={handleChange}
+                            DropDownData={DropDownData}
+                            CustomIcon={CustomIcon}
+                            currentPage={survey.currentPage}
+                        />
+                    </div>
+                    <div className="create-survey__wrapper__view">
+                        <SurveyView 
+                            handleChange={handleChange}
+                            survey={survey.page[currentIndex]}
+                            dropDown={dropDown}
+                        />
+                    </div>
+                    <div className="create-survey__wrapper__selection">
+                        <SelectionBar
+                            handlePreview={handlePreview}
+                            handleChange={handleChange}
+                            currentIndex={currentIndex}
+                            dropDown={dropDown}
+                            DropDownData={DropDownData}
+                            survey={survey}
+                            LayoutData={LayoutData}
+                            CustomIcon={CustomIcon} 
+                            handlePublish={handlePublish}
+                        />
+                    </div>
                 </div>
-                <div className="create-survey__wrapper__view">
-                    <SurveyView 
-                        handleChange={handleChange}
-                        survey={survey.page[currentIndex]}
-                        dropDown={dropDown}
-                    />
-                </div>
-                <div className="create-survey__wrapper__selection">
-                    <SelectionBar
-                        handleChange={handleChange}
-                        currentIndex={currentIndex}
-                        dropDown={dropDown}
-                        DropDownData={DropDownData}
-                        survey={survey}
-                        LayoutData={LayoutData}
-                        CustomIcon={CustomIcon} 
-                    />
-                </div>
-            </div>
+           }
+            <PreviewModal isModalVisible={isModalVisible} handlePreview={handlePreview}>
+                <PreviewPage />
+            </PreviewModal>
         </div>
     )
 }

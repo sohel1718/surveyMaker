@@ -4,7 +4,7 @@ import './style.scss';
 
 const { Option } = Select;
 
-const SelectionBar = ({ DropDownData, survey, handleChange, LayoutData, CustomIcon, currentIndex, dropDown}) => {
+const SelectionBar = ({ handlePreview, DropDownData, survey, handleChange, LayoutData, CustomIcon, currentIndex, dropDown, handlePublish}) => {
     const dropDownValue = ( <div>{CustomIcon(dropDown.icon)}<span>{dropDown.type}</span></div> );
 
     return (
@@ -62,8 +62,8 @@ const SelectionBar = ({ DropDownData, survey, handleChange, LayoutData, CustomIc
                 </div>   
             </div>
             <div className="selection-bar__action">
-                <button className="selection-bar__action__preview"><EyeOutlined /></button>
-                <button className="selection-bar__action__publish">Publish</button>
+                <button onClick={() => handlePreview()}className="selection-bar__action__preview"><EyeOutlined /></button>
+                <button onClick={() => handlePublish()}className="selection-bar__action__publish">Publish</button>
             </div>
         </div>
     )

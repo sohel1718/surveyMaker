@@ -44,17 +44,20 @@
             }
         }
         &__loggedIn {
+            display: flex;
+            align-items: center;
             &__user {
                 display: flex;
                 align-items: center;
+                margin-right: 10px;
                 img {
                     padding-top: 6px;
-                    height: 15px;
+                    height: 20px;
                     width: 15px;
                 }
                 &__profile {
-                    height: 50px;
-                    width: 50px;
+                    height: 45px;
+                    width: 45px;
                     margin-right: 10px;
                     img {
                         padding-top: unset;

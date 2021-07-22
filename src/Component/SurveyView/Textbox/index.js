@@ -1,10 +1,10 @@
 import { Input } from 'antd';
 import './style.scss';
 
-const Textbox = ({disabled}) => {
+const Textbox = ({disabled, compData, answer, handleAnswer, setError}) => {
     return (
         <div className="textbox">
-            <Input disabled={disabled} type="text" placeholder="Type your answer here..." />
+            <Input onFocus={() => setError("")} onChange={(e) => handleAnswer(e.target.value)} disabled={disabled} type="text" placeholder={compData.placeholder} value={answer} />
         </div>
     )
 }

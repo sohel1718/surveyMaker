@@ -1,14 +1,24 @@
 import './style.scss';
 
-const CreatedForm = () => {
+const CreatedForm = ({ survey, history }) => {
+
+    const handleSurvey = () => {
+      history.push(`/create/${survey.sid}`)
+    }
+
     return (
-      <div className="created-form">
+      <div onClick={() => handleSurvey()} className="created-form">
           <div className="created-form__name">
-                My SurveyForm
+                { survey.survey.surveyName }
           </div>
           <div className="created-form__footer">
             <div className="created-form__footer__response">
-                <div className="created-form__response">no response</div>
+            {
+              survey.response.length === 0 ? 
+              <div className="created-form__response">no response</div> :
+              <div className="created-form__response">{survey.response.length} response</div>
+            }
+    
             </div>
             <div>
                 <img src="/images/more.png" alt="" />

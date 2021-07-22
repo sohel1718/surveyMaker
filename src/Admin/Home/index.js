@@ -1,12 +1,19 @@
-import BasicHeader from '../../Component/Header';
+import Header from '../../Component/Header';
 import './style.scss';
 
-const Home = () => {
+const Home = ({user, history}) => {
 
+    const handleStart = () => {
+        if (user) {
+            history.push('/workspace');
+        } else {
+            history.push('/login');
+        }
+    } 
 
     return (
         <div className="home">
-            <BasicHeader />
+            <Header user={user} history={history} />
             <div className="home__wrapper">
                 <div className="home__wrapper__left">
                     <div className="home__wrapper__left__title">
@@ -17,7 +24,7 @@ const Home = () => {
                         And your audience won't answer one.
                         Create a typeform instead—and make everyone happy.
                     </div>
-                    <div className="home__wrapper__left__btn">
+                    <div onClick={() => handleStart()} className="home__wrapper__left__btn">
                         <span>Let's get started</span>
                     </div>
                 </div>

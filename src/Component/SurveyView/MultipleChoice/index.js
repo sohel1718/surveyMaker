@@ -1,27 +1,40 @@
 import { Input } from 'antd';
-import { CloseCircleOutlined } from '@ant-design/icons';
+import { CloseCircleOutlined, CheckOutlined } from '@ant-design/icons';
 import './style.scss';
 
-const MultipleChoice = ({ handleChoice, choice }) => {
-
+const MultipleChoice = ({ handleChoice, choice, preview = false, handleAnswer = null, answer }) => {
+    debugger
     return (
         <div className="multiple-choice">
             <div className="multiple-choice__wrapper">
                 {
-                    choice.map(data => {
+                    choice?.map(data => {
                         return (
-                            <div className="multiple-choice__wrapper__choice">
+                            <div onClick={() => handleAnswer?.(data.id)} className={`multiple-choice__wrapper__choice ${answer === data.id ? "multiple-choice__wrapper__active" : ""}`}>
                                 <span className="multiple-choice__wrapper__choice__num">{data.id}</span>
-                                <Input onChange={(e) => handleChoice("input", e.target.value, data.id)} type="text" />
-                                <CloseCircleOutlined onClick={() => handleChoice("delete", null, data.id)} className="multiple-choice__wrapper__choice__icon" />
+                                <Input readOnly={preview} onChange={(e) => handleChoice("input", e.target.value, data.id)} type="text" value={data.value} />
+                                {
+                                    !preview && (
+                                        <CloseCircleOutlined onClick={() => handleChoice("delete", null, data.id)} className="multiple-choice__wrapper__choice__icon" value={data.value} />
+                                    )
+                                }
+                                {
+                                    (preview && answer === data.id) && (
+                                        <CheckOutlined className="multiple-choice__wrapper__choice__icon" />
+                                    )
+                                }
                             </div>
                         )
                     })
                 }
             </div>
-            <div onClick={() => handleChoice("add", null, null)} className="multiple-choice__add">
-                Add choice
-            </div>
+            {
+                !preview && (
+                    <div onClick={() => handleChoice("add", null, null)} className="multiple-choice__add">
+                        Add choice
+                    </div>
+                )
+            }
         </div>
     )
 }
