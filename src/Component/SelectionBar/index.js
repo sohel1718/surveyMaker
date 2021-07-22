@@ -54,7 +54,7 @@ const SelectionBar = ({ handlePreview, DropDownData, survey, handleChange, Layou
                                     id={`${survey.page[currentIndex].layout === data.id ? "selected" : ""}`}
                                     className="selection-bar__layout__wrapper__box"
                                 >
-                                    <img src={`/images/layout${data.id}.png`} alt="" />
+                                    <img src={`/images/layout${data.id}.jpg`} alt="" />
                                 </div>
                             )
                         })

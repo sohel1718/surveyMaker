@@ -7,10 +7,12 @@ import { db, auth } from "../../firebase"
 import './style.scss';
 import firebase from "firebase";
 import { v4 as uuidv4 } from 'uuid';
+import Loader from 'react-loader-spinner';
 
 const Workspace = ({ history }) => {
     const [survey, setSurvey] = useState();
     const [user] = useAuthState(auth);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         db.collection("workspace")
@@ -21,6 +23,7 @@ const Workspace = ({ history }) => {
               id: doc.id,
             }));
             setSurvey(data);
+            setLoading(false);
           });
       }, [db]);
 
@@ -32,17 +35,27 @@ const Workspace = ({ history }) => {
             uid: user.email,
             sid,
             response: []
-        })
+        });
+        history.push(`/create/${sid}`)
     }
-    console.log(survey);
+    
     return (
         <div className="workspace">
             <div className="workspace__wrapper">
                 <CreateForm addNewSurvey={addNewSurvey} />
                 {
-                    survey?.map(data => (
+                   !loading ? survey?.map(data => (
                         <CreatedForm history={history} survey={data} />
-                    ))
+                    )) : (
+                        <div className="workspace__wrapper__loader">
+                            <Loader
+                                type="ThreeDots"
+                                color="#000"
+                                height={50}
+                                width={50}
+                            />
+                        </div>
+                    )
                 }
             </div>
         </div>

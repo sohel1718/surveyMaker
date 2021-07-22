@@ -46,6 +46,7 @@
         &__loggedIn {
             display: flex;
             align-items: center;
+            cursor: pointer;
             &__user {
                 display: flex;
                 align-items: center;

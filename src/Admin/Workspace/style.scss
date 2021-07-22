@@ -4,5 +4,17 @@
         display: flex;
         flex-wrap: wrap;
         flex: 0 1 auto;
+        &__loader {
+            width: 180px;
+            height: 180px;
+            border-radius: 8px;
+            box-shadow: rgb(0 0 0 / 8%) 0px 2px 4px, rgb(0 0 0 / 6%) 0px 2px 12px;
+            animation: 0.3s ease-in-out 0s 1 normal none running lbWRkT;
+            transition: all 0.2s ease-in 0s;
+            margin: 0 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     }
 }

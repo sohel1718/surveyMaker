@@ -22,16 +22,20 @@ function App() {
           { merge: true }
         );
     }
-  }, [user])
+  }, [user]);
 
-  if (loading) <Loading />
-  
   return (
    <Switch>
-     <Route exact path="/" render={props => <Home {...props} user={user} />} />
+     <Route exact path="/" render={props => {
+       if (loading) {
+         return <Loading />
+       } else {
+        return <Home {...props} user={user} />
+       }
+     }} />
      <Route exact path="/login" render={props => <Login {...props} user={user} />} />
-     <Layout exact path="/workspace" component={Workspace} isAuthenticated={user}  />
-     <Layout exact path="/create/:id" component={CreateSurvey} isAuthenticated={user}  />
+     <Layout exact loading={loading} path="/workspace" component={Workspace} isAuthenticated={user}  />
+     <Layout exact loading={loading} path="/create/:id" component={CreateSurvey} isAuthenticated={user}  />
    </Switch>
   );
 }

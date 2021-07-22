@@ -7,8 +7,8 @@ const CreatedForm = ({ survey, history }) => {
     }
 
     return (
-      <div onClick={() => handleSurvey()} className="created-form">
-          <div className="created-form__name">
+      <div className="created-form">
+          <div onClick={() => handleSurvey()} className="created-form__name">
                 { survey.survey.surveyName }
           </div>
           <div className="created-form__footer">
