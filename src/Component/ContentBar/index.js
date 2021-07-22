@@ -12,7 +12,7 @@ const ContentBar = ({ survey, handleChange, DropDownData, CustomIcon, currentPag
             <div className="content-bar__header">
                 <span>Content</span>
                 <div className="content-bar__header__icon">
-                        <Menu onClick={(e) => handleChange(e.key, "addPage")} triggerSubMenuAction={"click"} mode="horizontal">
+                        <Menu onClick={(e) => handleChange(e.key, "addPage")} triggerSubMenuAction={"click"} mode="vertical">
                             <SubMenu key="SubMenu" icon={<PlusSquareFilled className="content-bar__header__icon__main" />}>
                                 {
                                     DropDownData.map(data => {
@@ -35,7 +35,7 @@ const ContentBar = ({ survey, handleChange, DropDownData, CustomIcon, currentPag
                                     <span>{data.id}</span>
                                 </div>
                                 <div className="content-bar__lists__list__delete">
-                                    <Menu onClick={(e) => handleChange(e.key, "delete")} triggerSubMenuAction={"click"} mode="horizontal">
+                                    <Menu onClick={(e) => handleChange(e.key, "delete")} triggerSubMenuAction={"click"} mode="vertical">
                                         <SubMenu key="SubMenu" icon={<PlusCircleOutlined className="content-bar__lists__list__delete__icon" />}>
                                             {index !== 0 && <Menu.Item key={data.id}>Delete</Menu.Item>}
                                         </SubMenu>

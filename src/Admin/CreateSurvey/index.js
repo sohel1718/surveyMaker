@@ -4,7 +4,7 @@ import SurveyView from '../../Component/SurveyView';
 import { useParams } from 'react-router';
 import { useAuthState } from "react-firebase-hooks/auth"
 import * as AntdIcons from '@ant-design/icons';
-import { initialData, DropDownData, pageLayout, LayoutData } from '../../Data';
+import {  DropDownData, pageLayout, LayoutData } from '../../Data';
 import { useState, useEffect } from 'react';
 import { db, auth } from "../../firebase"
 import './style.scss';
