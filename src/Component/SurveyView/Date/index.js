@@ -1,10 +1,11 @@
-import { Calendar } from 'antd';
+import moment from 'moment';
+import { DatePicker } from 'antd';
 import './style.scss';
 
-const Date = ({ disabled }) => {
+const Date = ({ disabled, handleAnswer, setError, answer}) => {
     return (
         <div className="date">
-            <Calendar disabledDate={() => disabled} fullscreen={false} />
+            <DatePicker onFocus={() => setError("")} disabled={disabled} onChange={(e) => handleAnswer(e.format("DD-MM-YYYY"))} value={answer ? moment(answer, "DD-MM-YYYY") : moment()} />
         </div>
     )
 }

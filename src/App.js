@@ -9,6 +9,8 @@ import { auth, db } from "./firebase"
 import 'antd/dist/antd.css';
 import Login from './Admin/Login';
 import Loading from './Component/Loading';
+import PreviewPage from './Component/PreviewPage';
+import Thankyou from './Component/Thankyou';
 
 function App() {
   const [user, loading] = useAuthState(auth);
@@ -33,7 +35,10 @@ function App() {
         return <Home {...props} user={user} />
        }
      }} />
+     
      <Route exact path="/login" render={props => <Login {...props} user={user} />} />
+     <Route exact path="/thank-you" render={props => <Thankyou {...props} />} />
+     <Route exact path="/survey/:surveyID" render={props => <PreviewPage {...props} />} />
      <Layout exact loading={loading} path="/workspace" component={Workspace} isAuthenticated={user}  />
      <Layout exact loading={loading} path="/create/:id" component={CreateSurvey} isAuthenticated={user}  />
    </Switch>

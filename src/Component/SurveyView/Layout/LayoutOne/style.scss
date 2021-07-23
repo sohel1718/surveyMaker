@@ -1,3 +1,6 @@
+.layout-two {
+    flex-direction: row-reverse;
+}
 .layout-one {
     color: rgb(38, 38, 39);
     border-radius: 8px;
@@ -6,6 +9,7 @@
     height: 100%;
     width: 100%;
     max-width: 1110px;
+    min-height: 500px;
     max-height: 500px;
     position: relative;
     overflow: hidden;
@@ -26,7 +30,14 @@
         img { 
             height: 100%;
             width: 100%;
+            object-fit: cover;
         }
+    }
+    &__layout-three {
+        height: 100%;
+        min-height: 500px;
+        width: 400px;
+        margin: -50px 40px -50px -50px;
     }
     &__right {
         &__answer {

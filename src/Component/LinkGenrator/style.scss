@@ -1,0 +1,31 @@
+.link {
+    padding: 16px;
+    &__wrapper {
+        display: flex;
+        align-items: center;
+        &__text {
+            margin-right: 10px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            width: 100%;
+            max-width: 160px;
+            padding: 5px 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+        }
+        .ant-btn {
+            background-color: #262627;
+            color: #fff;
+            border-radius: 4px;
+            border: none;
+            &:focus {
+                background-color: #262627; 
+                color: #fff;
+            }
+            &:hover {
+                background-color: #333335;
+                color: #fff;
+            }
+        }
+    }
+}

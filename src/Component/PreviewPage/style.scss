@@ -1,11 +1,24 @@
+.container-layout {
+    margin: -24px;
+}
 .container {
+    #preview-mode {
+        height: 100vh;
+        width: 100%;
+        min-height: unset;
+        max-height: unset;
+        max-width: unset;
+    }
+    &__layout-two {
+        flex-direction: row-reverse;
+    }
     &__preview {
         color: rgb(38, 38, 39);
         border-radius: 8px;
         animation: 1s cubic-bezier(0.22, 1, 0.36, 1) 0s 1 normal none running expand;
         height: 100%;
         width: 100%;
-        max-width: 1200px;
+        min-height: 600px;
         max-height: 500px;
         position: relative;
         overflow: hidden;
@@ -21,13 +34,23 @@
             margin-right: 40px;
             object-fit: contain;
             background-size: cover;
-            width: 300px;
+            width: 400px;
             img { 
                 height: 100%;
                 width: 100%;
+                object-fit: cover;
             }
         }
+        &__layout-three {
+            width: 500px;
+            margin: -50px 40px -50px -50px;
+        }
         &__right {
+            overflow: hidden;
+            overflow-y: scroll;
+            &::-webkit-scrollbar {
+                display: none;
+             }
             &__answer {
                 margin-top: 20px;
                 margin-left: 65px;
@@ -76,6 +99,9 @@
     &__submit {
         display: flex;
         justify-content: flex-end;
+        margin-bottom: 10px;
+        flex-direction: column;
+        align-items: flex-end;
         &__skip {
             margin-left: 50px;
             font-weight: normal;
@@ -85,7 +111,6 @@
             border: none;
             outline: none;
             border-radius: 4px;
-            margin-right: 10px;
             color: #fff;
             cursor: pointer;
             &:hover {
@@ -94,8 +119,11 @@
         }
         &__changePage {
             display: flex;
+            flex-direction: column-reverse;
             height: fit-content;
-            button {
+            width: fit-content;
+            .ant-btn {
+                margin-top: 10px;
                 font-weight: bold;
                 font-size: 20px;
                 padding: 5px 15px;
@@ -115,6 +143,9 @@
                     }
                 }
                 &:hover {
+                    background: rgb(42, 97, 187);
+                }
+                &:focus {
                     background: rgb(42, 97, 187);
                 }
             }  

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import CreateForm from '../../Component/CreateForm';
 import CreatedForm from '../../Component/CreatedForm';
-import { useAuthState } from "react-firebase-hooks/auth"
+import { useAuthState } from "react-firebase-hooks/auth";
+import { message } from 'antd';
 import { initialData } from '../../Data';
 import { db, auth } from "../../firebase"
 import './style.scss';
@@ -35,8 +36,11 @@ const Workspace = ({ history }) => {
             uid: user.email,
             sid,
             response: []
+        }).then(() => {
+            message.success('Your survey successfully added');
+        }).catch((error) => {
+            message.warning('Failed to add survey',error);
         });
-        history.push(`/create/${sid}`)
     }
     
     return (

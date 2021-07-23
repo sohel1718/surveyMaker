@@ -1,22 +1,25 @@
+import Axios from 'axios';
 import ContentBar from '../../Component/ContentBar';
 import SelectionBar from '../../Component/SelectionBar';
 import SurveyView from '../../Component/SurveyView';
-import { useParams } from 'react-router';
-import { useAuthState } from "react-firebase-hooks/auth"
-import * as AntdIcons from '@ant-design/icons';
-import {  DropDownData, pageLayout, LayoutData } from '../../Data';
-import { useState, useEffect } from 'react';
-import { db, auth } from "../../firebase"
-import './style.scss';
 import PreviewModal from '../../Component/PreviewModal';
 import PreviewPage from '../../Component/PreviewPage';
+import * as AntdIcons from '@ant-design/icons';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
+import { useAuthState } from "react-firebase-hooks/auth"
+import {  DropDownData, pageLayout, LayoutData } from '../../Data';
+import { message } from 'antd';
+import { db, auth } from "../../firebase"
+import './style.scss';
 
 const CreateSurvey = () => {
     const { id } = useParams();
     const [user] = useAuthState(auth);
+    const [image, setImage] = useState("");
+    const [linkPopup, setLinkPopup] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [survey, setSurvey] = useState();
-    localStorage.setItem('survey', JSON.stringify(survey));
     const currentIndex = survey?.page.findIndex(data => data.id === survey.currentPage);
     const dropDown = DropDownData.filter(data => data.id === +survey?.page[currentIndex].dropDownId)?.[0];
 
@@ -37,12 +40,11 @@ const CreateSurvey = () => {
         return <AntdIcon className="selection-bar__type__icon" />
     }
 
-    const handleChange = (value, type, name = "") => {
+    const handleChange = async(value, type, name = "") => {
         const temp = {...survey};
         switch(type) {
             case "surveyInput": {
                 temp.page[currentIndex][name] = value;
-                setSurvey(temp);
                 break;
             }
             case "addPage": {
@@ -50,12 +52,25 @@ const CreateSurvey = () => {
                 const newPage = {...pageLayout};
                 newPage['id'] = temp.page.length + 1;
                 newPage['dropDownId'] = +value;
-                setSurvey({currentPage: temp.page.length + 1, ...temp, page: [...temp.page, newPage] }); 
+                temp['page'] = [...temp.page, newPage];
                 break;
             }
             case "changeCurrent": {
                 temp['currentPage'] = value; 
-                setSurvey(temp);
+                break;
+            }
+            case "fileUpload": {
+                if (image === value.file.originFileObj.name) {
+                    return false;
+                }
+                const formData = new FormData();
+                setImage(value.file.originFileObj.name);
+                formData.append("file", value.file.originFileObj);
+                formData.append("upload_preset", "ehd9m4r9");
+                await Axios.post("https://api.cloudinary.com/v1_1/djblgcmzg/upload",formData).then(res => {
+                    temp["image"] = res.data.url;
+                    message.success('image uploaded successfully');
+                })
                 break;
             }
             case "delete": {
@@ -68,17 +83,18 @@ const CreateSurvey = () => {
                         return data
                     })
                     temp.page = fixID;
-                    setSurvey(temp);
                 } 
                 break;
             }
             default: {
                 type === "surveyName" ? temp[type] = value : temp.page[currentIndex][type] = value; 
-                setSurvey(temp);
                 break;
             }
         }
-        localStorage.setItem('survey', JSON.stringify(temp));
+        setSurvey(temp);
+        db.collection("workspace").doc(id).update({
+            survey: temp
+        });
     }
 
     const handlePreview = () => {
@@ -86,6 +102,8 @@ const CreateSurvey = () => {
     } 
 
     const handlePublish = () => {
+        message.success('Survey published successfully');
+        setLinkPopup(!linkPopup);
         db.collection("workspace").doc(id).update({
             survey: survey
         });
@@ -109,6 +127,7 @@ const CreateSurvey = () => {
                             handleChange={handleChange}
                             survey={survey.page[currentIndex]}
                             dropDown={dropDown}
+                            image={survey.image}
                         />
                     </div>
                     <div className="create-survey__wrapper__selection">
@@ -122,12 +141,15 @@ const CreateSurvey = () => {
                             LayoutData={LayoutData}
                             CustomIcon={CustomIcon} 
                             handlePublish={handlePublish}
+                            linkPopup={linkPopup}
+                            sid={id}
+                            setLinkPopup={setLinkPopup}
                         />
                     </div>
                 </div>
            }
             <PreviewModal isModalVisible={isModalVisible} handlePreview={handlePreview}>
-                <PreviewPage />
+                <PreviewPage sid={id} />
             </PreviewModal>
         </div>
     )

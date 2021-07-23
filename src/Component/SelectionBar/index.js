@@ -1,10 +1,11 @@
-import { Input, Select, Switch } from 'antd';
+import { Input, Select, Switch, Upload, Button, Popover } from 'antd';
 import { EyeOutlined, UploadOutlined } from '@ant-design/icons';
+import LinkGenerator from '../LinkGenrator';
 import './style.scss';
 
 const { Option } = Select;
 
-const SelectionBar = ({ handlePreview, DropDownData, survey, handleChange, LayoutData, CustomIcon, currentIndex, dropDown, handlePublish}) => {
+const SelectionBar = ({ handlePreview, DropDownData, survey, handleChange, LayoutData, CustomIcon, currentIndex, dropDown, handlePublish, linkPopup, sid, setLinkPopup}) => {
     const dropDownValue = ( <div>{CustomIcon(dropDown.icon)}<span>{dropDown.type}</span></div> );
 
     return (
@@ -40,7 +41,9 @@ const SelectionBar = ({ handlePreview, DropDownData, survey, handleChange, Layou
             <div className="selection-bar__change">
                 <span>Change Image</span>
                 <div className="selection-bar__change__upload">
-                    <UploadOutlined />
+                <Upload showUploadList={false} onChange={(e) => handleChange(e,"fileUpload")}>
+                    <Button icon={<UploadOutlined />} />
+                </Upload>
                 </div>
             </div>
             <div className="selection-bar__layout">
@@ -54,7 +57,7 @@ const SelectionBar = ({ handlePreview, DropDownData, survey, handleChange, Layou
                                     id={`${survey.page[currentIndex].layout === data.id ? "selected" : ""}`}
                                     className="selection-bar__layout__wrapper__box"
                                 >
-                                    <img src={`/images/layout${data.id}.jpg`} alt="" />
+                                    {data.id}
                                 </div>
                             )
                         })
@@ -63,7 +66,15 @@ const SelectionBar = ({ handlePreview, DropDownData, survey, handleChange, Layou
             </div>
             <div className="selection-bar__action">
                 <button onClick={() => handlePreview()}className="selection-bar__action__preview"><EyeOutlined /></button>
-                <button onClick={() => handlePublish()}className="selection-bar__action__publish">Publish</button>
+                <Popover
+                    content={<LinkGenerator handlePublish={handlePublish} sid={sid} setLinkPopup={setLinkPopup} />}
+                    title="Get the Link"
+                    trigger="click"
+                    visible={linkPopup}
+                    onClick={() => handlePublish()} 
+                >
+                <button className="selection-bar__action__publish">Publish</button>
+                </Popover>
             </div>
         </div>
     )

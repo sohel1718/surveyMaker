@@ -2,7 +2,7 @@ import LayoutOne from './Layout/LayoutOne';
 import Components from '../index';
 import './style.scss';
 
-const SurveyView = ({ survey, dropDown, handleChange }) => {
+const SurveyView = ({ survey, dropDown, handleChange, image }) => {
     const ComponentToRender = Components[dropDown.component];
     let disabled = false;
 
@@ -11,7 +11,7 @@ const SurveyView = ({ survey, dropDown, handleChange }) => {
     }
     return (
         <div className="view">
-            <LayoutOne survey={survey} handleChange={handleChange} type={dropDown.type}  ComponentToRender={ComponentToRender} disabled={disabled} />
+            <LayoutOne survey={survey} image={image} handleChange={handleChange} type={dropDown.type}  ComponentToRender={ComponentToRender} disabled={disabled} />
         </div>
     )
 }

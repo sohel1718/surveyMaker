@@ -71,9 +71,14 @@
         }
         &__upload {
             cursor: pointer;
-            background: #e3e3e3;
-            padding: 4px 7px;
             border-radius: 4px;
+            .ant-upload {
+                span {
+                    button {
+                        background: #e3e3e3;
+                    }
+                }
+            }
         }
     }
     &__layout {
@@ -88,19 +93,24 @@
         &__wrapper {
             display: flex;
             #selected {
-                border: 4px solid;
-                border-color: #000;
+                background-color: #000;
+                color: #fff;
             }
             &__box {
                 cursor: pointer;
-                border: 2px solid #000;
+                border: 1px solid #000;
                 width: fit-content;
                 border-radius: 4px;
                 margin:  0 5px;
                 background-size: cover;
                 object-fit: contain;
+                font-size: 18px;
                 height: 42px;
                 width: 56px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-weight: bold;
                 img {
                     height: 100%;
                     width: 100%;

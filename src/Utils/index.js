@@ -45,3 +45,33 @@ export const Validator = (value, type) => {
     }
     return {valid, errorMessage};
 }
+
+export const getValidationType = (dropDownType) => {
+    let compData = {};
+    switch (dropDownType) {
+        case "Phone": {
+            compData = { placeholder: "9090909090", validation: dropDownType }; 
+            break;
+        }
+        case "Email": {
+            compData = { placeholder: "survey@gmail.com", validation: dropDownType };
+            break;
+        }
+        case "Website": {
+            compData = { placeholder: "https://", validation: dropDownType };
+            break;
+        }
+        case "Number": {
+            compData = { placeholder: "Type your answer here...", validation: dropDownType };
+            break;
+        }
+        case "Textbox": {
+            compData = { placeholder: "Type your answer here...", validation: null };
+            break;
+        }
+        default: {
+            break;
+        }
+    } 
+    return compData;
+}

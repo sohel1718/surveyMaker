@@ -3,7 +3,6 @@ import { CloseCircleOutlined, CheckOutlined } from '@ant-design/icons';
 import './style.scss';
 
 const MultipleChoice = ({ handleChoice, choice, preview = false, handleAnswer = null, answer }) => {
-    debugger
     return (
         <div className="multiple-choice">
             <div className="multiple-choice__wrapper">

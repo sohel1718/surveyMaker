@@ -1,6 +1,7 @@
 export const initialData = {
     surveyName: "My Survey",
     currentPage: 1,
+    image: "/images/bg-img.jpg",
     page: [
         {
             id: 1,

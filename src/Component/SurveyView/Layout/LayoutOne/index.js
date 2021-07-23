@@ -1,20 +1,21 @@
 import { useState, useEffect } from 'react';
+import { getValidationType } from '../../../../Utils';
 import Question from '../../Question';
 import './style.scss';
 
-const LayoutOne = ({ survey, ComponentToRender, disabled, handleChange, type }) => {
-    const [choice, setChoice] = useState();
-    let compData = {};
+const LayoutOne = ({ survey, ComponentToRender, disabled, handleChange, type, image }) => {
+    const [choice, setChoice] = useState([]);
+    let compData = getValidationType(type);
 
-    useEffect(() => {
+    useEffect(() => {   
         setChoice(survey.option)
     },[survey.option])
 
     const handleChoice = (type, value, id) => {
-        const temp = [...choice];
+        const temp = choice?.length > 0 ? [...choice] : [];
         const index = temp.findIndex(data => data.id === id);
         if (type === "add") {
-            temp.push({id: choice.length + 1, value: ""});
+            temp.push({id: temp.length + 1, value: ""});
             setChoice(temp);
         } else if (type === "input") {
             temp[index].value = value;
@@ -31,36 +32,10 @@ const LayoutOne = ({ survey, ComponentToRender, disabled, handleChange, type }) 
         handleChange(temp, "surveyInput", "option");
     }
 
-    switch (type) {
-        case "Phone": {
-            compData = { placeholder: "9090909090", validation: type }; 
-            break;
-        }
-        case "Email": {
-            compData = { placeholder: "survey@gmail.com", validation: type };
-            break;
-        }
-        case "Website": {
-            compData = { placeholder: "https://", validation: type };
-            break;
-        }
-        case "Number": {
-            compData = { placeholder: "Type your answer here...", validation: type };
-            break;
-        }
-        case "Textbox": {
-            compData = { placeholder: "Type your answer here...", validation: null };
-            break;
-        }
-        default: {
-            break;
-        }
-    }
-
     return (
-        <div className="layout-one">
-            <div className="layout-one__left">
-                <img src="/images/bg-img.jpg" alt="" />
+        <div className={`layout-one ${survey.layout === 2 ? "layout-two" : ""}`}>
+            <div className={`layout-one__left ${survey.layout === 3 ? "layout-one__layout-three" : ""}`}>
+                <img src={image} alt="" />
             </div>
             <div className="layout-one__right">
                 <div className="layout-one__right__question">
