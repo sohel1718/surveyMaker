@@ -1,5 +1,8 @@
 import Question from "../SurveyView/Question";
 import Components from '../index';
+import firebase from "firebase";
+import moment from "moment";
+import Loading from "../Loading";
 import { useState, useEffect } from 'react'; 
 import { DropDownData } from '../../Data';
 import { Button, message } from 'antd';
@@ -7,11 +10,12 @@ import { ArrowDownOutlined, ArrowUpOutlined, WarningFilled } from '@ant-design/i
 import { db } from "../../firebase";
 import { getValidationType, Validator } from "../../Utils";
 import { useParams } from 'react-router';
+import { v4 as uuidv4 } from 'uuid';
 import "./style.scss";
-import moment from "moment";
 
 const PreviewPage = ({ sid, history }) => {
     const { surveyID } = useParams();
+    const [loader, setLoader] = useState(true);
     const [survey, setSurvey] = useState();
     const [error, setError] = useState("");
     const [pageIndex, setPageIndex] = useState(0);
@@ -25,6 +29,7 @@ const PreviewPage = ({ sid, history }) => {
           .onSnapshot((querySnapShot) => {
             setSurvey(querySnapShot?.data()?.survey);
             setPageIndex(0);
+            setLoader(false);
           });
     },[db]);
 
@@ -65,13 +70,12 @@ const PreviewPage = ({ sid, history }) => {
             if (survey.page.length === pageIndex + 1) {
                 if(surveyID) {
                     let response = {};
+                    const id = uuidv4();
                     response =  survey.page.map(data => {
-                        return {...response, ["question" + data.id.toString()]: data.question, ["answer" + data.id.toString()]: data.answer}
+                        return {...response, id, question: data.question, answer: data.answer, date: moment().format('MMMM Do YYYY, h:mm:ss a')}
                     });
-                    db.collection("responses").add({
-                        response,
-                        sid: surveyID,
-                        date: moment().format("DD MMM YYYY H:i:s")
+                    db.collection("workspace").doc(surveyID).update({
+                        response: firebase.firestore.FieldValue.arrayUnion(...response),
                     }).then(() => {
                         history.push('/thank-you'); 
                     }).catch((error) => {
@@ -86,7 +90,9 @@ const PreviewPage = ({ sid, history }) => {
             }
         }
     }
-
+    if (loader) {
+        return <Loading />
+    }
     return (
         <div className={`container ${survey?.page[pageIndex]?.layout === 3 ? "container-layout" : ""}`}>
             {

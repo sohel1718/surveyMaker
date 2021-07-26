@@ -9,7 +9,7 @@ const MultipleChoice = ({ handleChoice, choice, preview = false, handleAnswer = 
                 {
                     choice?.map(data => {
                         return (
-                            <div onClick={() => handleAnswer?.(data.id)} className={`multiple-choice__wrapper__choice ${answer === data.id ? "multiple-choice__wrapper__active" : ""}`}>
+                            <div onClick={() => handleAnswer?.(data.value)} className={`multiple-choice__wrapper__choice ${answer === data.value ? "multiple-choice__wrapper__active" : ""}`}>
                                 <span className="multiple-choice__wrapper__choice__num">{data.id}</span>
                                 <Input readOnly={preview} onChange={(e) => handleChoice("input", e.target.value, data.id)} type="text" value={data.value} />
                                 {
@@ -18,7 +18,7 @@ const MultipleChoice = ({ handleChoice, choice, preview = false, handleAnswer = 
                                     )
                                 }
                                 {
-                                    (preview && answer === data.id) && (
+                                    (preview && answer === data.value) && (
                                         <CheckOutlined className="multiple-choice__wrapper__choice__icon" />
                                     )
                                 }

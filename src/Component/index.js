@@ -5,6 +5,5 @@
     Components['MultipleChoice'] = require('./SurveyView/MultipleChoice').default;
     Components['Feedback'] = require('./SurveyView/Feedback').default;
     Components['Textarea'] = require('./SurveyView/Textarea').default;
-    Components['Droplist'] = require('./SurveyView/Droplist').default;
 
     export default Components

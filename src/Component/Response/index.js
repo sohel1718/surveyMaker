@@ -1,39 +1,11 @@
 import { Table } from 'antd';
 import './style.scss';
 
-const { Column } = Table;
-
 const response = ({ data }) => {
-    debugger
-      const columns = [
-        {
-          title: 'Date',
-          dataIndex: 'date',
-          key: 'date',
-        },
-        {
-          title: 'Question',
-          dataIndex: 'response',
-          key: 'response',
-          render: (data, row, index) => {
-              debugger
-              return (
-                data[index].question
-              )
-          }
-        },
-        {
-          title: 'Answer',
-          dataIndex: 'answer',
-          key: 'answer',
-          render: (data, row, index) => {
-            debugger
-            return (
-              row.response[0].answer
-            )
-        }
-        },
-      ];
+    const columns = Object.keys(data[data.length - 1]).map(field => (field === "id" ? {} : {title: field.toUpperCase(),dataIndex:field, key: field,
+    
+    }));
+    
     return (
         <Table columns={columns} dataSource={data} />
     )
