@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "/*"
+  to = "https://surveyagency.netlify.app/"
+  status = 200
