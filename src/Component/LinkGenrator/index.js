@@ -2,7 +2,7 @@ import { Button, message } from 'antd';
 import './style.scss';
 
 const LinkGenerator = ({ sid, setLinkPopup }) => {
-    const link = `http://localhost:3000/survey/${sid}`;
+    const link = `${window.location.origin}/survey/${sid}`;
     const handleCopy = () => {
         navigator.clipboard.writeText(link);
         message.success('link copied!');
