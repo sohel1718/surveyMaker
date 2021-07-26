@@ -3,7 +3,6 @@ import './style.scss';
 
 const LinkGenerator = ({ sid, setLinkPopup }) => {
     const link = `${window.location.origin}/survey/${sid}`;
-    debugger
     const handleCopy = () => {
         navigator.clipboard.writeText(link);
         message.success('link copied!');
