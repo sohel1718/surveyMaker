@@ -11,7 +11,7 @@ const LinkGenerator = ({ sid, setLinkPopup }) => {
     return (
         <div className="link">
             <div className="link__wrapper">
-                <span className="link__wrapper__text">http://localhost:3000/survey/</span>
+                <span className="link__wrapper__text">{window.location.origin}/survey/</span>
                 <Button onClick={() => handleCopy()} >Copy</Button>
             </div>
         </div>
