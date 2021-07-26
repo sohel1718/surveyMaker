@@ -5,7 +5,13 @@ import './style.scss';
 
 const { Option } = Select;
 
-const SelectionBar = ({ handlePreview, DropDownData, survey, handleChange, LayoutData, CustomIcon, currentIndex, dropDown, handlePublish, linkPopup, sid, setLinkPopup}) => {
+const SelectionBar = (props) => {
+    const { handlePreview, DropDownData, survey,
+            handleChange, LayoutData, CustomIcon,
+            currentIndex, dropDown, handlePublish,
+            linkPopup, sid, setLinkPopup
+            } = props;
+            
     const dropDownValue = ( <div>{CustomIcon(dropDown.icon)}<span>{dropDown.type}</span></div> );
 
     return (

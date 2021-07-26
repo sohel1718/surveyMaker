@@ -1,5 +1,5 @@
 import Question from "../SurveyView/Question";
-import Components from '../index';
+import Components from '../inputComponent';
 import firebase from "firebase";
 import moment from "moment";
 import Loading from "../Loading";

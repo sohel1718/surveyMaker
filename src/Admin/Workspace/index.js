@@ -1,19 +1,18 @@
+import firebase from "firebase";
+import Loader from 'react-loader-spinner';
+import { CreateForm, CreatedForm } from '../../Component/mainComponent';
 import { useState, useEffect } from 'react';
-import CreateForm from '../../Component/CreateForm';
-import CreatedForm from '../../Component/CreatedForm';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { message } from 'antd';
 import { initialData } from '../../Data';
 import { db, auth } from "../../firebase"
-import './style.scss';
-import firebase from "firebase";
 import { v4 as uuidv4 } from 'uuid';
-import Loader from 'react-loader-spinner';
+import './style.scss';
 
 const Workspace = ({ history }) => {
     const [survey, setSurvey] = useState();
-    const [user] = useAuthState(auth);
     const [loading, setLoading] = useState(true);
+    const [user] = useAuthState(auth);
 
     useEffect(() => {
         db.collection("workspace")

@@ -1,5 +1,5 @@
 import LayoutOne from './Layout/LayoutOne';
-import Components from '../index';
+import Components from '../inputComponent';
 import './style.scss';
 
 const SurveyView = ({ survey, dropDown, handleChange, image }) => {
@@ -11,7 +11,14 @@ const SurveyView = ({ survey, dropDown, handleChange, image }) => {
     }
     return (
         <div className="view">
-            <LayoutOne survey={survey} image={image} handleChange={handleChange} type={dropDown.type}  ComponentToRender={ComponentToRender} disabled={disabled} />
+            <LayoutOne 
+                survey={survey}
+                image={image}
+                handleChange={handleChange}
+                type={dropDown.type}
+                ComponentToRender={ComponentToRender}
+                disabled={disabled} 
+            />
         </div>
     )
 }

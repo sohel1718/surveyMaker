@@ -1,9 +1,5 @@
 import Axios from 'axios';
-import ContentBar from '../../Component/ContentBar';
-import SelectionBar from '../../Component/SelectionBar';
-import SurveyView from '../../Component/SurveyView';
-import PreviewModal from '../../Component/PreviewModal';
-import PreviewPage from '../../Component/PreviewPage';
+import { ContentBar, SelectionBar, SurveyView, PreviewModal, PreviewPage} from '../../Component/mainComponent';
 import * as AntdIcons from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
