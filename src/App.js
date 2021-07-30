@@ -39,7 +39,7 @@ function App() {
      }} />
      
      <Route exact path="/linkedin" component={LinkedInPopUp} />
-      <Route path="/" component={SignUp} />
+      <Route path="/signup" component={SignUp} />
      <Route exact path="/login" render={props => <Login {...props} user={user} />} />
      <Route exact path="/thank-you" render={props => <Thankyou {...props} />} />
      <Route exact path="/survey/:surveyID" render={props => <PreviewPage {...props} />} />
