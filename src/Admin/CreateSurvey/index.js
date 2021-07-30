@@ -9,6 +9,7 @@ import { message } from 'antd';
 import { db, auth } from "../../firebase"
 import './style.scss';
 
+
 const CreateSurvey = () => {
     const { id } = useParams();
     const [user] = useAuthState(auth);

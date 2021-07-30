@@ -8,9 +8,11 @@ import { useAuthState } from "react-firebase-hooks/auth"
 import { auth, db } from "./firebase"
 import 'antd/dist/antd.css';
 import Login from './Admin/Login';
+import { LinkedInPopUp } from 'react-linkedin-login-oauth2';
 import Loading from './Component/Loading';
 import PreviewPage from './Component/PreviewPage';
 import Thankyou from './Component/Thankyou';
+import SignUp from './User/SignUp';
 
 function App() {
   const [user, loading] = useAuthState(auth);
@@ -36,6 +38,8 @@ function App() {
        }
      }} />
      
+     <Route exact path="/linkedin" component={LinkedInPopUp} />
+      <Route path="/" component={SignUp} />
      <Route exact path="/login" render={props => <Login {...props} user={user} />} />
      <Route exact path="/thank-you" render={props => <Thankyou {...props} />} />
      <Route exact path="/survey/:surveyID" render={props => <PreviewPage {...props} />} />
