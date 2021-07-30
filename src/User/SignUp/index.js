@@ -12,7 +12,7 @@ const SignUp = () => {
             code: user.code,
             client_id: "770d55dzm1esjw",
             client_secret: "Wj5vaBslRUgIR1ei",
-            redirect_uri: "http://localhost:3000/linkedin",
+            redirect_uri: "https://surveyagency.netlify.app/linkedin",
         }
         const headers = {
             "Access-Control-Allow-Origin": "*",
@@ -35,7 +35,7 @@ const SignUp = () => {
                 clientId="770d55dzm1esjw"
                 onFailure={handleSocialLoginFailure}
                 onSuccess={handleSocialLogin}
-                redirectUri="http://localhost:3000/linkedin"
+                redirectUri="https://surveyagency.netlify.app/linkedin"
             >
                 <img src={linkedin} alt="Log in with Linked In" style={{ maxWidth: '180px' }} />
             </LinkedIn>
